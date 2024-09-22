@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
+using programming_work_backend.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,17 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowAll",
         policy =>
-        {   
+        {
             policy.AllowAnyOrigin()
                   .AllowAnyMethod()
                   .AllowAnyHeader();
         });
+});
+// Db connection
+builder.Services.AddDbContext<DBContext>(options =>
+{
+    options.UseMySql(builder.Configuration.GetConnectionString("programming-work-db"),
+    Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.2-Mysql"));
 });
 var app = builder.Build();
 // Configure the HTTP request pipeline.
