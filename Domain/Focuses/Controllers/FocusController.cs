@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace programming_work_backend.Domain.Focus.Controllers;
+namespace programming_work_backend.Domain.Focuses.Controllers;
 
 [ApiController]
 [Route("api/v1/focus")]

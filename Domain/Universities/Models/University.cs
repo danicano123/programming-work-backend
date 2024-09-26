@@ -1,6 +1,6 @@
-namespace programming_work_backend.Domain.University.Models;
+namespace programming_work_backend.Domain.Universities.Models;
 
-public class University
+public class Universities
 {
 
     public string Name { get; set; }

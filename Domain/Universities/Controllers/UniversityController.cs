@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace programming_work_backend.Domain.University.Controllers;
+namespace programming_work_backend.Domain.Universities.Controllers;
 
 [ApiController]
 [Route("api/v1/University")]

@@ -1,6 +1,6 @@
-namespace programming_work_backend.Domain.Focus.Models;
+namespace programming_work_backend.Domain.Focuses.Models;
 
-public class Focus
+public class Focuses
 {
 
     public string Name { get; set; }
