@@ -26,6 +26,14 @@ builder.Services.AddDbContext<DBContext>(options =>
     Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.2-Mysql"));
 });
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<DBContext>();
+    dbContext.Database.Migrate();  // Este comando aplica las migraciones pendientes
+}
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
