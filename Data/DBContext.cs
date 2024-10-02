@@ -1,20 +1,17 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using programming_work_backend.Domain.NormativeAspects.Models;
-using programming_work_backend.Domain.Focuses.Models;
+using programming_work_backend.Domain.Approaches.Models;
 using programming_work_backend.Domain.Universities.Models;
 
 namespace programming_work_backend.Data;
 
-public class DBContext : DbContext
+public class DBContext(DbContextOptions<DBContext> options) : DbContext(options)
 {
     // Conection constructor
-    public DBContext(DbContextOptions<DBContext> options) : base(options)
-    {
+        public DbSet<Approach> Approaches { get; set; }
+        public DbSet<NormativeAspect> NormativeAspects { get; set; }
 
-    }
-    // Models constructor
-    public DbSet<NormativeAspect> NormativeAspects { get; set; }
-    public DbSet<Focuses> Focuses { get; set; }
-    public DbSet<Universities> Universities { get; set; }
+        public DbSet<University> Universities { get; set; }
+    
+    
 }

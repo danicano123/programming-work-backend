@@ -1,10 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace programming_work_backend.Domain.Universities.Models;
 
-public class Universities
+public class University
 {
-
-    public string Name { get; set; }
-    public string Type { get; set; }
-    public string City { get; set; }
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
 
 }

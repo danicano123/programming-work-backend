@@ -1,42 +1,83 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using programming_work_backend.Data;
+using programming_work_backend.Domain.Universities.Models;
 
 namespace programming_work_backend.Domain.Universities.Controllers;
 
 [ApiController]
 [Route("api/v1/University")]
-public class UniversityController : ControllerBase
+public class UniversitiesController(DBContext context) : ControllerBase
 {
 
     [HttpGet]
-    public async Task<IActionResult> GetUniversity()
+    public async Task<IActionResult> GetUniversities()
     {
-        return Ok();
+        var universities = await context.Universities.ToListAsync();
+        return Ok(universities);
     }
 
-    [HttpGet]
-    [Route("{id}")]
-    public async Task<IActionResult> GetOneUniversity(int id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetUniversity(int id)
     {
-        return Ok();
+        var university = await context.Universities.FindAsync(id);
+        if (university == null)
+        {
+            return NotFound(new { message = "University not found." });
+        }
+        return Ok(university);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUniversity(int id)
+    public async Task<IActionResult> CreateUniversity([FromBody] University university)
     {
-        return Ok();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        context.Universities.Add(university);
+        await context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetUniversity), new { id = university.Id }, university);
     }
 
-    [HttpPatch]
-    [Route("{id}")]
-    public async Task<IActionResult> EditUniversity(int id)
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateUniversity(int id, [FromBody] University university)
     {
-        return Ok();
+        if (id != university.Id)
+        {
+            return BadRequest(new { message = "ID mismatch." });
+        }
+
+        var existingUniversity = await context.Universities.FindAsync(id);
+        if (existingUniversity == null)
+        {
+            return NotFound(new { message = "University not found." });
+        }
+
+        existingUniversity.Name = university.Name;
+        existingUniversity.Type = university.Type;
+        existingUniversity.City = university.City;
+
+        context.Entry(existingUniversity).State = EntityState.Modified;
+        await context.SaveChangesAsync();
+
+        return NoContent();
     }
 
-    [HttpDelete]
-    [Route("{id}")]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteUniversity(int id)
     {
-        return Ok();
+        var university = await context.Universities.FindAsync(id);
+        if (university == null)
+        {
+            return NotFound(new { message = "University not found." });
+        }
+
+        context.Universities.Remove(university);
+        await context.SaveChangesAsync();
+
+        return NoContent();
     }
 }
