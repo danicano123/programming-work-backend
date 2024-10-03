@@ -1,42 +1,84 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using programming_work_backend.Data;
+using programming_work_backend.Domain.NormativeAspects.Models;
 
 namespace programming_work_backend.Domain.NormativeAspects.Controllers;
 
 [ApiController]
-[Route("api/v1/normative-aspects")]
-public class NormativeAspectsController : ControllerBase
+[Route("api/v1/normativeAspect")]
+public class NormativeAspects(DBContext context) : ControllerBase
 {
 
     [HttpGet]
     public async Task<IActionResult> GetNormativeAspects()
     {
-        return Ok();
+        var normativeAspects = await context.NormativeAspects.ToListAsync();
+        return Ok(normativeAspects);
     }
 
-    [HttpGet]
-    [Route("{id}")]
-    public async Task<IActionResult> GetOneNormativeAspects(int id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetNormativeAspect(int id)
     {
-        return Ok();
+        var normativeAspect = await context.NormativeAspects.FindAsync(id);
+        if (normativeAspect == null)
+        {
+            return NotFound(new { message = "NormativeAspect not found." });
+        }
+        return Ok(normativeAspect);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateNormativeAspect(int id)
+    public async Task<IActionResult> CreateNormativeAspect([FromBody] NormativeAspect normativeAspect)
     {
-        return Ok();
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        context.NormativeAspects.Add(normativeAspect);  //por que me sale error en allied?
+        await context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetNormativeAspect), new { id = normativeAspect.Id }, normativeAspect);
     }
 
-    [HttpPatch]
-    [Route("{id}")]
-    public async Task<IActionResult> EditNormativeApect(int id)
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateNormativeAspect(int id, [FromBody] NormativeAspect normativeAspect) 
     {
-        return Ok();
+        if (id != normativeAspect.Id) 
+        {
+            return BadRequest(new { message = "ID mismatch." });
+        }
+
+        var existingNormativeAspect = await context.NormativeAspects.FindAsync(id);
+        if (existingNormativeAspect == null)
+        {
+            return NotFound(new { message = "NormativeAspect not found." });
+        }
+        
+        existingNormativeAspect.Id = normativeAspect.Id;
+        existingNormativeAspect.Type = normativeAspect.Type;   
+        existingNormativeAspect.Description = normativeAspect.Description;
+        existingNormativeAspect.Source = normativeAspect.Source;
+
+        context.Entry(existingNormativeAspect).State = EntityState.Modified;
+        await context.SaveChangesAsync();
+
+        return NoContent();
     }
 
-    [HttpDelete]
-    [Route("{id}")]
-    public async Task<IActionResult> DeleteNormativeAspects(int id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteNormativeAspect(int id)
     {
-        return Ok();
+        var normativeAspect = await context.NormativeAspects.FindAsync(id);
+        if (normativeAspect == null)
+        {
+            return NotFound(new { message = "NormativeAspect not found." });
+        }
+
+        context.NormativeAspects.Remove(normativeAspect); //Por que me sale error?
+        await context.SaveChangesAsync();
+
+        return NoContent();
     }
 }
