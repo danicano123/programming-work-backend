@@ -6,7 +6,7 @@ using programming_work_backend.Domain.NormativeAspects.Models;
 namespace programming_work_backend.Domain.NormativeAspects.Controllers;
 
 [ApiController]
-[Route("api/v1/normative-aspect")]
+[Route("api/v1/normative-aspects")]
 public class NormativeAspects(DBContext context) : ControllerBase
 {
 
@@ -42,10 +42,29 @@ public class NormativeAspects(DBContext context) : ControllerBase
         return CreatedAtAction(nameof(GetNormativeAspect), new { id = normativeAspect.Id }, normativeAspect);
     }
 
-    [HttpPatch("{id}")]
-    public async Task<IActionResult> UpdateNormativeAspect(int id, [FromBody] NormativeAspect normativeAspect) 
+    [HttpPost("toggle-is-active/{id}")]
+    public async Task<IActionResult> ToggleIsActive(int id)
     {
-        if (id != normativeAspect.Id) 
+        var normativeAspect = await context.NormativeAspects.FindAsync(id);
+        if (normativeAspect == null)
+        {
+            return NotFound(new { message = "NormativeAspect not found." });
+        }
+
+        // Cambiar el valor de IsActive
+        normativeAspect.IsActive = !normativeAspect.IsActive;
+
+        // Guardar los cambios
+        await context.SaveChangesAsync();
+
+        return Ok(normativeAspect);
+    }
+
+
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateNormativeAspect(int id, [FromBody] NormativeAspect normativeAspect)
+    {
+        if (id != normativeAspect.Id)
         {
             return BadRequest(new { message = "ID mismatch." });
         }
@@ -55,9 +74,9 @@ public class NormativeAspects(DBContext context) : ControllerBase
         {
             return NotFound(new { message = "NormativeAspect not found." });
         }
-        
+
         existingNormativeAspect.Id = normativeAspect.Id;
-        existingNormativeAspect.Type = normativeAspect.Type;   
+        existingNormativeAspect.Type = normativeAspect.Type;
         existingNormativeAspect.Description = normativeAspect.Description;
         existingNormativeAspect.Source = normativeAspect.Source;
 

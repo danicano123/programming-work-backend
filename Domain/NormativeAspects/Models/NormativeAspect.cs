@@ -13,4 +13,7 @@ public class NormativeAspect
     [Required]
     public string Source { get; set; } = string.Empty;
 
+    [Required]
+    public bool IsActive { get; set; } = true;
+    
 }
