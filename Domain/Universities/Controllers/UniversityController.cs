@@ -6,7 +6,7 @@ using programming_work_backend.Domain.Universities.Models;
 namespace programming_work_backend.Domain.Universities.Controllers;
 
 [ApiController]
-[Route("api/v1/University")]
+[Route("api/v1/university")]
 public class UniversitiesController(DBContext context) : ControllerBase
 {
 
