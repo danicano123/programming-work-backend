@@ -6,7 +6,7 @@ using programming_work_backend.Domain.NormativeAspects.Models;
 namespace programming_work_backend.Domain.NormativeAspects.Controllers;
 
 [ApiController]
-[Route("api/v1/normativeAspect")]
+[Route("api/v1/normative-aspect")]
 public class NormativeAspects(DBContext context) : ControllerBase
 {
 
