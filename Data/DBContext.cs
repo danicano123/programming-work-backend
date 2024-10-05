@@ -4,6 +4,7 @@ using programming_work_backend.Domain.Approaches.Models;
 using programming_work_backend.Domain.Universities.Models;
 using programming_work_backend.Domain.Allieds.Models;
 using programming_work_backend.Domain.PracticeStrategys.Models;
+using programming_work_backend.Domain.CarInnovations.Models;
 
 namespace programming_work_backend.Data;
 
@@ -20,6 +21,6 @@ public class DBContext(DbContextOptions<DBContext> options) : DbContext(options)
 
         public DbSet<PracticeStrategy> PracticeStrategys { get; set; }
 
-    
+        public DbSet<CarInnovation> CarInnovations {get; set; }
     
 }
