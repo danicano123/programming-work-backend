@@ -13,5 +13,7 @@ public class Allied
     public string Phone { get; set; } = string.Empty;
     [Required]
     public string City { get; set; } = string.Empty;
+    [Required]
+    public bool IsActive { get; set; } = true;
 
 }

@@ -9,5 +9,7 @@ public class University
     public string Name { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
+    [Required]
+    public bool IsActive { get; set; } = true;
 
 }

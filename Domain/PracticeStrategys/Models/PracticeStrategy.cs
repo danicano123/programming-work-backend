@@ -12,5 +12,7 @@ public class PracticeStrategy
     public string Name { get; set; } = string.Empty;
     [Required]
     public string Description { get; set; } = string.Empty;
+    [Required]
+    public bool IsActive { get; set; } = true;
 
 }

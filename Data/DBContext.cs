@@ -5,22 +5,97 @@ using programming_work_backend.Domain.Universities.Models;
 using programming_work_backend.Domain.Allieds.Models;
 using programming_work_backend.Domain.PracticeStrategys.Models;
 using programming_work_backend.Domain.CarInnovations.Models;
+using programming_work_backend.Domain.Teachers.Models;
+using programming_work_backend.Domain.TeacherPrograms.Models;
+using programming_work_backend.Domain.Programms.Models;
+using programming_work_backend.Domain.Faculties.Models;
+using programming_work_backend.Domain.Alliances.Models;
+using programming_work_backend.Domain.ProgrammCarInnovations.Models;
+using programming_work_backend.Domain.ProgrammPracticeStrategys.Models;
 
-namespace programming_work_backend.Data;
-
-public class DBContext(DbContextOptions<DBContext> options) : DbContext(options)
+namespace programming_work_backend.Data
 {
-    // Conection constructor
+    public class DBContext : DbContext
+    {
+        public DBContext(DbContextOptions<DBContext> options) : base(options) { }
+
         public DbSet<Approach> Approaches { get; set; }
-
         public DbSet<NormativeAspect> NormativeAspects { get; set; }
-
         public DbSet<University> Universities { get; set; }
-
         public DbSet<Allied> Allieds { get; set; }
-
         public DbSet<PracticeStrategy> PracticeStrategys { get; set; }
+        public DbSet<CarInnovation> CarInnovations { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<TeacherProgram> TeacherPrograms { get; set; }
+        public DbSet<Programm> Programs { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Alliance> Alliances { get; set; }
+        public DbSet<ProgrammCarInnovation> ProgrammCarInnovations { get; set; }
+        public DbSet<ProgrammPracticeStrategy> ProgrammPracticeStrategys { get; set; }
 
-        public DbSet<CarInnovation> CarInnovations {get; set; }
-    
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Configuración de la relación entre TeacherProgram y Teacher
+            modelBuilder.Entity<TeacherProgram>()
+                .HasOne(tp => tp.Teacher)
+                .WithMany()
+                .HasForeignKey(tp => tp.TeacherId);
+
+            // Configuración de la relación entre TeacherProgram y Programm
+            modelBuilder.Entity<TeacherProgram>()
+                .HasOne(tp => tp.Programm)
+                .WithMany()
+                .HasForeignKey(tp => tp.ProgrammId);
+
+            // Configuración de la relación entre Alliance y Programm
+            modelBuilder.Entity<Alliance>()
+                .HasOne(a => a.Programm)
+                .WithMany()
+                .HasForeignKey(a => a.ProgrammId);
+
+            // Configuración de la relación entre Alliance y Allied
+            modelBuilder.Entity<Alliance>()
+                .HasOne(a => a.Allied)
+                .WithMany()
+                .HasForeignKey(a => a.AlliedId);
+
+            // Configuración de la relación entre Alliance y Teacher
+            modelBuilder.Entity<Alliance>()
+                .HasOne(a => a.Teacher)
+                .WithMany()
+                .HasForeignKey(a => a.TeacherId);
+
+            // Configuración de la relación entre ProgrammCarInnovation y Programm
+            modelBuilder.Entity<ProgrammCarInnovation>()
+                .HasOne(pci => pci.Programm)
+                .WithMany()
+                .HasForeignKey(pci => pci.ProgrammId);
+
+            // Configuración de la relación entre ProgrammCarInnovation y CarInnovation
+            modelBuilder.Entity<ProgrammCarInnovation>()
+                .HasOne(pci => pci.CarInnovation)
+                .WithMany()
+                .HasForeignKey(pci => pci.CarInnovationId);
+
+            // Configuración de la relación entre ProgrammPracticeStrategy y Programm
+            modelBuilder.Entity<ProgrammPracticeStrategy>()
+                .HasOne(pps => pps.Programm)
+                .WithMany()
+                .HasForeignKey(pps => pps.ProgrammId);
+
+            // Configuración de la relación entre ProgrammPracticeStrategy y PracticeStrategy
+            modelBuilder.Entity<ProgrammPracticeStrategy>()
+                .HasOne(pps => pps.PracticeStrategy)
+                .WithMany()
+                .HasForeignKey(pps => pps.PracticeStrategyId);
+
+            // Configuración de la relación entre Faculty y University
+            modelBuilder.Entity<Faculty>()
+                .HasOne(f => f.University)
+                .WithMany()
+                .HasForeignKey(f => f.UniversityId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+    }
 }
