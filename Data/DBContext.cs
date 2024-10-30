@@ -12,6 +12,10 @@ using programming_work_backend.Domain.Faculties.Models;
 using programming_work_backend.Domain.Alliances.Models;
 using programming_work_backend.Domain.ProgrammCarInnovations.Models;
 using programming_work_backend.Domain.ProgrammPracticeStrategys.Models;
+using programming_work_backend.Domain.NormativeAspectProgramms.Models;
+using programming_work_backend.Domain.Internships.Models;
+using programming_work_backend.Domain.QualifiedRegistries.Models;
+using programming_work_backend.Domain.QualifiedRegistryApproaches.Models;
 
 namespace programming_work_backend.Data
 {
@@ -32,6 +36,12 @@ namespace programming_work_backend.Data
         public DbSet<Alliance> Alliances { get; set; }
         public DbSet<ProgrammCarInnovation> ProgrammCarInnovations { get; set; }
         public DbSet<ProgrammPracticeStrategy> ProgrammPracticeStrategys { get; set; }
+        public DbSet<NormativeAspectProgramm> NormativeAspectProgramms { get; set; }
+        public DbSet<Internship> Internships { get; set; }
+        public DbSet<QualifiedRegistry> QualifiedRegistries { get; set; }
+        public DbSet<QualifiedRegistryApproach> QualifiedRegistryApproaches { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -94,6 +104,37 @@ namespace programming_work_backend.Data
                 .HasOne(f => f.University)
                 .WithMany()
                 .HasForeignKey(f => f.UniversityId);
+
+
+            modelBuilder.Entity<NormativeAspectProgramm>()
+                .HasOne(nap => nap.NormativeAspect)
+                .WithMany()
+                .HasForeignKey(nap => nap.NormativeAspectId);
+
+            modelBuilder.Entity<NormativeAspectProgramm>()
+                .HasOne(nap => nap.Programm)
+                .WithMany()
+                .HasForeignKey(nap => nap.ProgrammId);
+
+            modelBuilder.Entity<Internship>()
+                .HasOne(i => i.Programm)
+                .WithMany()
+                .HasForeignKey(i => i.ProgrammId);
+
+            modelBuilder.Entity<QualifiedRegistry>()
+                .HasOne(qr => qr.Programm)
+                .WithMany()
+                .HasForeignKey(qr => qr.ProgrammId);
+
+            modelBuilder.Entity<QualifiedRegistryApproach>()
+                .HasOne(qra => qra.QualifiedRegistry)
+                .WithMany()
+                .HasForeignKey(qra => qra.QualifiedRegistryId);
+
+            modelBuilder.Entity<QualifiedRegistryApproach>()
+                .HasOne(qra => qra.Approach)
+                .WithMany()
+                .HasForeignKey(qra => qra.ApproachId);
 
             base.OnModelCreating(modelBuilder);
         }
