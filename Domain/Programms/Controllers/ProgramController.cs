@@ -37,10 +37,6 @@ public class ProgramsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProgram([FromBody] Programm program)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
 
         _context.Programs.Add(program);
         await _context.SaveChangesAsync();

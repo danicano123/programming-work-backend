@@ -41,9 +41,9 @@ namespace programming_work_backend.Domain.Programms.Models
         public string City { get; set; } = string.Empty;
 
         [ForeignKey("Faculty")]
-        public int FacultyId { get; set; }
+        public int? FacultyId { get; set; }
         public Faculty? Faculty { get; set; }
 
-        public bool IsActive { get; set; } = true;
+        public bool? IsActive { get; set; } = true;
     }
 }

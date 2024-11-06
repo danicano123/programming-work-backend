@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using programming_work_backend.Data;
 
@@ -11,9 +12,11 @@ using programming_work_backend.Data;
 namespace programming_work_backend.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20241106221434_accreditation has fk with programm")]
+    partial class accreditationhasfkwithprogramm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -541,8 +544,6 @@ namespace programming_work_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FacultyId");
-
                     b.ToTable("Programs");
                 });
 
@@ -912,15 +913,6 @@ namespace programming_work_backend.Migrations
                     b.Navigation("PracticeStrategy");
 
                     b.Navigation("Programm");
-                });
-
-            modelBuilder.Entity("programming_work_backend.Domain.Programms.Models.Programm", b =>
-                {
-                    b.HasOne("programming_work_backend.Domain.Faculties.Models.Faculty", "Faculty")
-                        .WithMany()
-                        .HasForeignKey("FacultyId");
-
-                    b.Navigation("Faculty");
                 });
 
             modelBuilder.Entity("programming_work_backend.Domain.QualifiedRegistries.Models.QualifiedRegistry", b =>

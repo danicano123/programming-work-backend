@@ -12,11 +12,11 @@ namespace programming_work_backend.Domain.NormativeAspectProgramms.Models
         public int Id { get; set; }
 
         [ForeignKey("NormativeAspect")]
-        public int NormativeAspectId { get; set; }
+        public int? NormativeAspectId { get; set; }
         public NormativeAspect? NormativeAspect { get; set; }
 
         [ForeignKey("Programm")]
-        public int ProgrammId { get; set; }
+        public int? ProgrammId { get; set; }
         public Programm? Programm { get; set; }
 
         [Required]

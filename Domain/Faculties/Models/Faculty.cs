@@ -21,7 +21,7 @@ namespace programming_work_backend.Domain.Faculties.Models
         public DateTime FoundationDate { get; set; }
 
         [ForeignKey("University")]
-        public int UniversityId { get; set; }
+        public int? UniversityId { get; set; }
         public University? University { get; set; }
 
         public bool IsActive { get; set; } = true;
