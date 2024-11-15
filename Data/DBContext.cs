@@ -16,6 +16,7 @@ using programming_work_backend.Domain.NormativeAspectProgramms.Models;
 using programming_work_backend.Domain.Internships.Models;
 using programming_work_backend.Domain.QualifiedRegistries.Models;
 using programming_work_backend.Domain.QualifiedRegistryApproaches.Models;
+using programming_work_backend.Domain.Users.Models;
 
 namespace programming_work_backend.Data
 {
@@ -40,12 +41,13 @@ namespace programming_work_backend.Data
         public DbSet<Internship> Internships { get; set; }
         public DbSet<QualifiedRegistry> QualifiedRegistries { get; set; }
         public DbSet<QualifiedRegistryApproach> QualifiedRegistryApproaches { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configuración de la relación entre TeacherProgram y Teacher
+            // Configuración de la relación entre 256+ y Teacher
             modelBuilder.Entity<TeacherProgram>()
                 .HasOne(tp => tp.Teacher)
                 .WithMany()
