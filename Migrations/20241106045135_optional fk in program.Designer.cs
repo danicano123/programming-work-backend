@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using programming_work_backend.Data;
 
@@ -11,9 +12,11 @@ using programming_work_backend.Data;
 namespace programming_work_backend.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20241106045135_optional fk in program")]
+    partial class optionalfkinprogram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,98 +24,6 @@ namespace programming_work_backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
-
-            modelBuilder.Entity("programming_work_backend.Domain.AcademicActivities.Models.AcademicActivity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Credits")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HAcom")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HIndep")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<short>("Mirror")
-                        .HasColumnType("smallint");
-
-                    b.Property<string>("MirrorCountry")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("MirrorEntity")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("ProgrammId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TrainingArea")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AcademicActivities");
-                });
-
-            modelBuilder.Entity("programming_work_backend.Domain.Accreditations.Models.Acreditation", b =>
-                {
-                    b.Property<int>("Resolution")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Resolution"));
-
-                    b.Property<string>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int?>("ProgrammId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Qualification")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Resolution");
-
-                    b.HasIndex("ProgrammId");
-
-                    b.ToTable("Accreditations");
-                });
 
             modelBuilder.Entity("programming_work_backend.Domain.Alliances.Models.Alliance", b =>
                 {
@@ -122,7 +33,7 @@ namespace programming_work_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AlliedId")
+                    b.Property<int>("AlliedId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -134,7 +45,7 @@ namespace programming_work_backend.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -204,46 +115,6 @@ namespace programming_work_backend.Migrations
                     b.ToTable("Approaches");
                 });
 
-            modelBuilder.Entity("programming_work_backend.Domain.Awards.Models.Award", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("GrantingEntity")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("ProgrammId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProgrammId");
-
-                    b.ToTable("Awards");
-                });
-
             modelBuilder.Entity("programming_work_backend.Domain.CarInnovations.Models.CarInnovation", b =>
                 {
                     b.Property<int>("Id")
@@ -296,7 +167,7 @@ namespace programming_work_backend.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int?>("UniversityId")
+                    b.Property<int>("UniversityId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -333,7 +204,7 @@ namespace programming_work_backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("ProgrammId")
+                    b.Property<int>("ProgrammId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -357,10 +228,10 @@ namespace programming_work_backend.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("NormativeAspectId")
+                    b.Property<int>("NormativeAspectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProgrammId")
+                    b.Property<int>("ProgrammId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -436,7 +307,7 @@ namespace programming_work_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CarInnovationId")
+                    b.Property<int>("CarInnovationId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -465,10 +336,10 @@ namespace programming_work_backend.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("PracticeStrategyId")
+                    b.Property<int>("PracticeStrategyId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProgrammId")
+                    b.Property<int>("ProgrammId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -511,7 +382,7 @@ namespace programming_work_backend.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
 
-                    b.Property<bool?>("IsActive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("LastUpdateDate")
@@ -588,7 +459,7 @@ namespace programming_work_backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("ProgrammId")
+                    b.Property<int>("ProgrammId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -601,32 +472,6 @@ namespace programming_work_backend.Migrations
                     b.ToTable("QualifiedRegistries");
                 });
 
-            modelBuilder.Entity("programming_work_backend.Domain.QualifiedRegistryAcademicActivities.Models.QualifiedRegistryAcademicActivity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AcademicActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<int?>("QualifiedRegistryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AcademicActivityId");
-
-                    b.HasIndex("QualifiedRegistryId");
-
-                    b.ToTable("QualifiedRegistryAcademicActivities");
-                });
-
             modelBuilder.Entity("programming_work_backend.Domain.QualifiedRegistryApproaches.Models.QualifiedRegistryApproach", b =>
                 {
                     b.Property<int>("Id")
@@ -635,13 +480,13 @@ namespace programming_work_backend.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ApproachId")
+                    b.Property<int>("ApproachId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int?>("QualifiedRegistryId")
+                    b.Property<int>("QualifiedRegistryId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -675,13 +520,13 @@ namespace programming_work_backend.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("ProgrammId")
+                    b.Property<int>("ProgrammId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int?>("TeacherId")
+                    b.Property<int>("TeacherId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -806,20 +651,13 @@ namespace programming_work_backend.Migrations
                     b.ToTable("Universities");
                 });
 
-            modelBuilder.Entity("programming_work_backend.Domain.Accreditations.Models.Acreditation", b =>
-                {
-                    b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
-                        .WithMany()
-                        .HasForeignKey("ProgrammId");
-
-                    b.Navigation("Programm");
-                });
-
             modelBuilder.Entity("programming_work_backend.Domain.Alliances.Models.Alliance", b =>
                 {
                     b.HasOne("programming_work_backend.Domain.Allieds.Models.Allied", "Allied")
                         .WithMany()
-                        .HasForeignKey("AlliedId");
+                        .HasForeignKey("AlliedId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
@@ -829,7 +667,9 @@ namespace programming_work_backend.Migrations
 
                     b.HasOne("programming_work_backend.Domain.Teachers.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Allied");
 
@@ -838,7 +678,18 @@ namespace programming_work_backend.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("programming_work_backend.Domain.Awards.Models.Award", b =>
+            modelBuilder.Entity("programming_work_backend.Domain.Faculties.Models.Faculty", b =>
+                {
+                    b.HasOne("programming_work_backend.Domain.Universities.Models.University", "University")
+                        .WithMany()
+                        .HasForeignKey("UniversityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("University");
+                });
+
+            modelBuilder.Entity("programming_work_backend.Domain.Internships.Models.Internship", b =>
                 {
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
@@ -849,33 +700,19 @@ namespace programming_work_backend.Migrations
                     b.Navigation("Programm");
                 });
 
-            modelBuilder.Entity("programming_work_backend.Domain.Faculties.Models.Faculty", b =>
-                {
-                    b.HasOne("programming_work_backend.Domain.Universities.Models.University", "University")
-                        .WithMany()
-                        .HasForeignKey("UniversityId");
-
-                    b.Navigation("University");
-                });
-
-            modelBuilder.Entity("programming_work_backend.Domain.Internships.Models.Internship", b =>
-                {
-                    b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
-                        .WithMany()
-                        .HasForeignKey("ProgrammId");
-
-                    b.Navigation("Programm");
-                });
-
             modelBuilder.Entity("programming_work_backend.Domain.NormativeAspectProgramms.Models.NormativeAspectProgramm", b =>
                 {
                     b.HasOne("programming_work_backend.Domain.NormativeAspects.Models.NormativeAspect", "NormativeAspect")
                         .WithMany()
-                        .HasForeignKey("NormativeAspectId");
+                        .HasForeignKey("NormativeAspectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
-                        .HasForeignKey("ProgrammId");
+                        .HasForeignKey("ProgrammId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("NormativeAspect");
 
@@ -886,7 +723,9 @@ namespace programming_work_backend.Migrations
                 {
                     b.HasOne("programming_work_backend.Domain.CarInnovations.Models.CarInnovation", "CarInnovation")
                         .WithMany()
-                        .HasForeignKey("CarInnovationId");
+                        .HasForeignKey("CarInnovationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
@@ -903,11 +742,15 @@ namespace programming_work_backend.Migrations
                 {
                     b.HasOne("programming_work_backend.Domain.PracticeStrategys.Models.PracticeStrategy", "PracticeStrategy")
                         .WithMany()
-                        .HasForeignKey("PracticeStrategyId");
+                        .HasForeignKey("PracticeStrategyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
-                        .HasForeignKey("ProgrammId");
+                        .HasForeignKey("ProgrammId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PracticeStrategy");
 
@@ -927,35 +770,26 @@ namespace programming_work_backend.Migrations
                 {
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
-                        .HasForeignKey("ProgrammId");
+                        .HasForeignKey("ProgrammId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Programm");
-                });
-
-            modelBuilder.Entity("programming_work_backend.Domain.QualifiedRegistryAcademicActivities.Models.QualifiedRegistryAcademicActivity", b =>
-                {
-                    b.HasOne("programming_work_backend.Domain.AcademicActivities.Models.AcademicActivity", "AcademicActivity")
-                        .WithMany()
-                        .HasForeignKey("AcademicActivityId");
-
-                    b.HasOne("programming_work_backend.Domain.QualifiedRegistries.Models.QualifiedRegistry", "QualifiedRegistry")
-                        .WithMany()
-                        .HasForeignKey("QualifiedRegistryId");
-
-                    b.Navigation("AcademicActivity");
-
-                    b.Navigation("QualifiedRegistry");
                 });
 
             modelBuilder.Entity("programming_work_backend.Domain.QualifiedRegistryApproaches.Models.QualifiedRegistryApproach", b =>
                 {
                     b.HasOne("programming_work_backend.Domain.Approaches.Models.Approach", "Approach")
                         .WithMany()
-                        .HasForeignKey("ApproachId");
+                        .HasForeignKey("ApproachId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("programming_work_backend.Domain.QualifiedRegistries.Models.QualifiedRegistry", "QualifiedRegistry")
                         .WithMany()
-                        .HasForeignKey("QualifiedRegistryId");
+                        .HasForeignKey("QualifiedRegistryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Approach");
 
@@ -966,11 +800,15 @@ namespace programming_work_backend.Migrations
                 {
                     b.HasOne("programming_work_backend.Domain.Programms.Models.Programm", "Programm")
                         .WithMany()
-                        .HasForeignKey("ProgrammId");
+                        .HasForeignKey("ProgrammId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("programming_work_backend.Domain.Teachers.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Programm");
 

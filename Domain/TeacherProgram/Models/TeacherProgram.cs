@@ -12,11 +12,11 @@ namespace programming_work_backend.Domain.TeacherPrograms.Models
         public int Id { get; set; }
 
         [ForeignKey("Teacher")]
-        public int TeacherId { get; set; }
+        public int? TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
 
         [ForeignKey("Programm")]
-        public int ProgrammId { get; set; }
+        public int? ProgrammId { get; set; }
         public Programm? Programm { get; set; }
 
         public string Dedication { get; set; } = string.Empty;

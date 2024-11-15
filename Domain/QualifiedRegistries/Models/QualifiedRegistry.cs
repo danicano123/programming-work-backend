@@ -37,7 +37,7 @@ public class QualifiedRegistry
     public string DegreeType { get; set; } = string.Empty;
 
     [ForeignKey("Programm")]
-    public int ProgrammId { get; set; }
+    public int? ProgrammId { get; set; }
     public Programm? Programm { get; set; }
 
     [Required]

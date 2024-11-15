@@ -15,7 +15,7 @@ namespace programming_work_backend.Domain.ProgrammCarInnovations.Models
         public Programm? Programm { get; set; }
 
         [ForeignKey("CarInnovation")]
-        public int CarInnovationId { get; set; }
+        public int? CarInnovationId { get; set; }
         public CarInnovation? CarInnovation { get; set; }
 
         public bool IsActive { get; set; } = true;

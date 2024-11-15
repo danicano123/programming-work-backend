@@ -17,6 +17,10 @@ using programming_work_backend.Domain.Internships.Models;
 using programming_work_backend.Domain.QualifiedRegistries.Models;
 using programming_work_backend.Domain.QualifiedRegistryApproaches.Models;
 using programming_work_backend.Domain.Users.Models;
+using programming_work_backend.Domain.Accreditations.Models;
+using programming_work_backend.Domain.Awards.Models;
+using programming_work_backend.Domain.AcademicActivities.Models;
+using programming_work_backend.Domain.QualifiedRegistryAcademicActivities.Models;
 
 namespace programming_work_backend.Data
 {
@@ -42,6 +46,11 @@ namespace programming_work_backend.Data
         public DbSet<QualifiedRegistry> QualifiedRegistries { get; set; }
         public DbSet<QualifiedRegistryApproach> QualifiedRegistryApproaches { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Acreditation> Accreditations { get; set; }
+        public DbSet<Award> Awards { get; set; }
+        public DbSet<AcademicActivity> AcademicActivities { get; set; }
+        public DbSet<QualifiedRegistryAcademicActivity> QualifiedRegistryAcademicActivities { get; set; }
+
 
 
 

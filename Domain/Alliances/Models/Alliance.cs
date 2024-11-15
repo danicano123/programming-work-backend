@@ -17,11 +17,11 @@ namespace programming_work_backend.Domain.Alliances.Models
         public Programm? Programm { get; set; }
 
         [ForeignKey("Allied")]
-        public int AlliedId { get; set; }
+        public int? AlliedId { get; set; }
         public Allied? Allied { get; set; }
 
         [ForeignKey("Teacher")]
-        public int TeacherId { get; set; }
+        public int? TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
 
         public DateTime StartDate { get; set; }

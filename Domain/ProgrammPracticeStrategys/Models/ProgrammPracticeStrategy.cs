@@ -11,11 +11,11 @@ namespace programming_work_backend.Domain.ProgrammPracticeStrategys.Models
         public int Id { get; set; }
 
         [ForeignKey("Programm")]
-        public int ProgrammId { get; set; }
+        public int? ProgrammId { get; set; }
         public Programm? Programm { get; set; }
 
         [ForeignKey("PracticeStrategy")]
-        public int PracticeStrategyId { get; set; }
+        public int? PracticeStrategyId { get; set; }
         public PracticeStrategy? PracticeStrategy { get; set; }
 
         public bool IsActive { get; set; } = true;

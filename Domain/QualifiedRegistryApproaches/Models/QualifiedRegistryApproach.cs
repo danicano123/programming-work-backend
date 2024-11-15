@@ -10,16 +10,13 @@ public class QualifiedRegistryApproach
     [Key]
     public int Id { get; set; }
 
-    [Required]
-    public int QualifiedRegistryId { get; set; }
+    [ForeignKey("QualifiedRegistry")]
+    public int? QualifiedRegistryId { get; set; }
 
-    [Required]
-    public int ApproachId { get; set; }
+    [ForeignKey("Approach")]
+    public int? ApproachId { get; set; }
 
-    [ForeignKey("QualifiedRegistryId")]
     public QualifiedRegistry? QualifiedRegistry { get; set; }
-
-    [ForeignKey("ApproachId")]
     public Approach? Approach { get; set; }
 
     [Required]
