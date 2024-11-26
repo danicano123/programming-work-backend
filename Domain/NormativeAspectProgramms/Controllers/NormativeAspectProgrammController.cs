@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace programming_work_backend.Domain.NormativeAspectProgramms.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/normative-aspect-programm")]
     [ApiController]
     public class NormativeAspectProgrammController : ControllerBase
     {

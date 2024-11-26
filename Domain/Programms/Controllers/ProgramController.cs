@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using programming_work_backend.Data;
 using programming_work_backend.Domain.Programms.Models;
 
-namespace programming_work_backend.Domain.Programs.Controllers;
+namespace programming_work_backend.Domain.Programms.Controllers;
 
 [ApiController]
 [Route("api/v1/programs")]

@@ -6,7 +6,6 @@ using programming_work_backend.Domain.Allieds.Models;
 using programming_work_backend.Domain.PracticeStrategys.Models;
 using programming_work_backend.Domain.CarInnovations.Models;
 using programming_work_backend.Domain.Teachers.Models;
-using programming_work_backend.Domain.TeacherPrograms.Models;
 using programming_work_backend.Domain.Programms.Models;
 using programming_work_backend.Domain.Faculties.Models;
 using programming_work_backend.Domain.Alliances.Models;
@@ -21,13 +20,12 @@ using programming_work_backend.Domain.Accreditations.Models;
 using programming_work_backend.Domain.Awards.Models;
 using programming_work_backend.Domain.AcademicActivities.Models;
 using programming_work_backend.Domain.QualifiedRegistryAcademicActivities.Models;
+using programming_work_backend.Domain.TeacherPrograms.Models;
 
 namespace programming_work_backend.Data
 {
-    public class DBContext : DbContext
+    public class DBContext(DbContextOptions<DBContext> options) : DbContext(options)
     {
-        public DBContext(DbContextOptions<DBContext> options) : base(options) { }
-
         public DbSet<Approach> Approaches { get; set; }
         public DbSet<NormativeAspect> NormativeAspects { get; set; }
         public DbSet<University> Universities { get; set; }

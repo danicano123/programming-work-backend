@@ -5,7 +5,7 @@ using programming_work_backend.Domain.QualifiedRegistries.Models;
 
 namespace programming_work_backend.Domain.QualifiedRegistries.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/qualified-registries")]
     [ApiController]
     public class QualifiedRegistryController : ControllerBase
     {

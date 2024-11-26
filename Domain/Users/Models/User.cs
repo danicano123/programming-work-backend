@@ -1,22 +1,19 @@
+namespace programming_work_backend.Domain.Users.Models;
+
 using System;
 using programming_work_backend.Domain.Users.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-
-namespace programming_work_backend.Domain.Users.Models
+public class User
 {
-    [Table("users")]
-    public class User
-    {
-        public string id { get; set; } 
-        public string user { get; set; } = string.Empty;
-        public string password { get; set; } = string.Empty;
-        public string rol { get; set; } = string.Empty;
+    public string id { get; set; }
+    public string user { get; set; } = string.Empty;
+    public string password { get; set; } = string.Empty;
+    public string rol { get; set; } = string.Empty;
 
-        public static List<User> DBContext()
-        {
-            var list = new List<User>
+    public static List<User> DBContext()
+    {
+        var list = new List<User>
             {
                 new User
                 {
@@ -48,9 +45,9 @@ namespace programming_work_backend.Domain.Users.Models
                 }
             };
 
-            return list;
-        }
+        return list;
     }
 }
+
 
 

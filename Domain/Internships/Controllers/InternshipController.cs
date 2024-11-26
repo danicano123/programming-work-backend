@@ -3,9 +3,9 @@ using programming_work_backend.Data;
 using programming_work_backend.Domain.Internships.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace programming_work_backend.Controllers
+namespace programming_work_backend.Domain.Internships.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/internship")]
     [ApiController]
     public class InternshipController : ControllerBase
     {

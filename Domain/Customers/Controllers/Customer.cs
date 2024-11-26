@@ -6,7 +6,7 @@ using programming_work_backend.Domain.Users.Models;
 namespace programming_work_backend.Domain.Jwt
 {
     [ApiController]
-    [Route("customer")]
+    [Route("api/v1/customer")]
     public class CustomerController : ControllerBase
     {
         [HttpGet]

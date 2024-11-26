@@ -7,14 +7,9 @@ namespace programming_work_backend.Domain.Faculties.Controllers;
 
 [ApiController]
 [Route("api/v1/faculties")]
-public class FacultiesController : ControllerBase
+public class FacultiesController(DBContext context) : ControllerBase
 {
-    private readonly DBContext _context;
-
-    public FacultiesController(DBContext context)
-    {
-        _context = context;
-    }
+    private readonly DBContext _context = context;
 
     [HttpGet]
     public async Task<IActionResult> GetFaculties()
