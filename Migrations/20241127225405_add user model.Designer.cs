@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using programming_work_backend.Data;
 
@@ -11,9 +12,11 @@ using programming_work_backend.Data;
 namespace programming_work_backend.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20241127225405_add user model")]
+    partial class addusermodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -808,57 +811,24 @@ namespace programming_work_backend.Migrations
 
             modelBuilder.Entity("programming_work_backend.Domain.Users.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("varchar(255)");
 
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
+                    b.Property<string>("password")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("rol")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Rol")
+                    b.Property<string>("user")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Mateo",
-                            Password = "123",
-                            Rol = "empleado"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Marcos",
-                            Password = "123",
-                            Rol = "empleado"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Lucas",
-                            Password = "123",
-                            Rol = "asesor"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Juan",
-                            Password = "123",
-                            Rol = "administrador"
-                        });
                 });
 
             modelBuilder.Entity("programming_work_backend.Domain.Accreditations.Models.Acreditation", b =>

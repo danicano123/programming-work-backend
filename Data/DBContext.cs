@@ -54,6 +54,14 @@ namespace programming_work_backend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Mateo", Password = "123", Rol = "empleado" },
+                new User { Id = 2, Name = "Marcos", Password = "123", Rol = "empleado" },
+                new User { Id = 3, Name = "Lucas", Password = "123", Rol = "asesor" },
+                new User { Id = 4, Name = "Juan", Password = "123", Rol = "administrador" }
+            );
+
             // Configuración de la relación entre 256+ y Teacher
             modelBuilder.Entity<TeacherProgram>()
                 .HasOne(tp => tp.Teacher)

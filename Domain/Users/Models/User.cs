@@ -1,47 +1,43 @@
 namespace programming_work_backend.Domain.Users.Models;
 
 using System;
-using programming_work_backend.Domain.Users.Models;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 public class User
-{
-    public string id { get; set; }
-    public string user { get; set; } = string.Empty;
-    public string password { get; set; } = string.Empty;
-    public string rol { get; set; } = string.Empty;
+{    
+    [Key]
+    public int Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string Rol { get; set; } = string.Empty;
 
     public static List<User> DBContext()
     {
         var list = new List<User>
             {
-                new User
-                {
-                    id = "1",
-                    user = "Mateo",
-                    password = "123",
-                    rol = "empleado"
+                new() {
+                    Id = 1,
+                    Name = "Mateo",
+                    Password = "123",
+                    Rol = "empleado"
                 },
-                new User
-                {
-                    id = "2",
-                    user = "Marcos",
-                    password = "123",
-                    rol = "empleado"
+                new() {
+                    Id = 2,
+                    Name = "Marcos",
+                    Password = "123",
+                    Rol = "empleado"
                 },
-                new User
-                {
-                    id = "3",
-                    user = "Lucas",
-                    password = "123",
-                    rol = "asesor"
+                new() {
+                    Id = 3,
+                    Name = "Lucas",
+                    Password = "123",
+                    Rol = "asesor"
                 },
-                new User
-                {
-                    id = "4",
-                    user = "Juan",
-                    password = "123",
-                    rol = "administrador"
+                new() {
+                    Id = 4,
+                    Name = "Juan",
+                    Password = "123",
+                    Rol = "administrador"
                 }
             };
 

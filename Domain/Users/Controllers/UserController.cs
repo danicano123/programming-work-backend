@@ -1,4 +1,4 @@
-using System.IdentityModel.Tokens.Jwt; 
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
@@ -8,34 +8,42 @@ using Newtonsoft.Json;
 using programming_work_backend.Data;
 using programming_work_backend.Domain.Users.Models;
 
-namespace programming_work_backend.Domain.Jwt;
+namespace programming_work_backend.Domain.Users.Controllers;
 
-    [ApiController]
-    [Route("user")]
-    public class UserController : ControllerBase
+[ApiController]
+[Route("api/v1/user")]
+public class UserController : ControllerBase
+{
+    private readonly DBContext _context;
+    private readonly IConfiguration _configuration;
+
+    public UserController(DBContext context, IConfiguration configuration)
     {
-        private readonly DBContext _context;
-        private readonly IConfiguration _configuration;
-
-        public UserController(DBContext context, IConfiguration configuration)
-        {
-            _context = context;
-            _configuration = configuration;
-        }
+        _context = context;
+        _configuration = configuration;
+    }
 
     [HttpPost]
     [Route("login")]
-    public async Task<IActionResult> IniciarSesion([FromBody] object optData)
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
         try
         {
-            var data = JsonConvert.DeserializeObject<dynamic>(optData.ToString());
-            string user = data.usuario.ToString();
-            string password = data.password.ToString();
+            // Validate incoming data
+            if (string.IsNullOrEmpty(loginRequest.Username) || string.IsNullOrEmpty(loginRequest.Password))
+            {
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "El nombre de usuario y la contraseña son obligatorios.",
+                    result = ""
+                });
+            }
 
-            User usuario = await _context.Users.FirstOrDefaultAsync(x => x.user == user && x.password == password);
+            // Verify user credentials
+            User user = await _context.Users.FirstOrDefaultAsync(x => x.Name == loginRequest.Username && x.Password == loginRequest.Password);
 
-            if (usuario == null)
+            if (user == null)
             {
                 return Unauthorized(new
                 {
@@ -45,40 +53,70 @@ namespace programming_work_backend.Domain.Jwt;
                 });
             }
 
-            // Generar token JWT
-            var jwt = _configuration.GetSection("Jwt").Get<Jwt>();
+            // Generate JWT token
+            var jwtConfig = _configuration.GetSection("Jwt").Get<JwtConfig>();
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, jwt.Subject),
+                new Claim(JwtRegisteredClaimNames.Sub, jwtConfig.Subject),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString(), ClaimValueTypes.Integer64),
-                new Claim("id", usuario.id),
-                new Claim("usuario", usuario.user)
+                new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+                new Claim("id", user.Id.ToString()),
+                new Claim("name", user.Name),
+                new Claim("role", user.Rol)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key));
             var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
-                jwt.Issuer,
-                jwt.Audience,
+                jwtConfig.Issuer,
+                jwtConfig.Audience,
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(4),
+                expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: signIn
             );
 
+            // Return the JWT along with user data
             return Ok(new
             {
                 success = true,
                 message = "Inicio de sesión exitoso",
-                result = new JwtSecurityTokenHandler().WriteToken(token)
+                result = new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    user = new
+                    {
+                        user.Id,
+                        user.Name,
+                        user.Rol,
+                    }
+                }
             });
         }
         catch (JsonReaderException ex)
         {
-            return BadRequest(new { error = "Formato JSON inválido", details = ex.Message });
+            return BadRequest(new
+            {
+                success = false,
+                message = "Formato JSON inválido",
+                details = ex.Message
+            });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                success = false,
+                message = "Ocurrió un error al procesar la solicitud.",
+                details = ex.Message
+            });
         }
     }
-
 }
 
+// DTO for login request
+public class LoginRequest
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+}

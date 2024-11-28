@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using programming_work_backend.Data;
 
@@ -11,9 +12,11 @@ using programming_work_backend.Data;
 namespace programming_work_backend.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20241128065858_users test")]
+    partial class userstest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -804,61 +807,6 @@ namespace programming_work_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Universities");
-                });
-
-            modelBuilder.Entity("programming_work_backend.Domain.Users.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Rol")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Mateo",
-                            Password = "123",
-                            Rol = "empleado"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Marcos",
-                            Password = "123",
-                            Rol = "empleado"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Lucas",
-                            Password = "123",
-                            Rol = "asesor"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Juan",
-                            Password = "123",
-                            Rol = "administrador"
-                        });
                 });
 
             modelBuilder.Entity("programming_work_backend.Domain.Accreditations.Models.Acreditation", b =>
